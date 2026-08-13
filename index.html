@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Palak ♡</title>
+
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+
+body{
+margin:0;
+font-family:Georgia,"Times New Roman",serif;
+background:#fff7fb;
+color:#4b2638;
+overflow-x:hidden;
+}
+
+section{
+min-height:100vh;
+padding:70px 20px;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.hero{
+text-align:center;
+background:radial-gradient(circle at 50% 20%,#fff,#ffe6f0 55%,#ffd2e2);
+}
+
+.wrap{max-width:900px;width:100%}
+
+.kicker{
+letter-spacing:4px;
+text-transform:uppercase;
+font:600 12px Arial;
+color:#b05b7d;
+}
+
+h1{
+font-size:clamp(52px,15vw,110px);
+line-height:.9;
+margin:18px 0;
+color:#7d2f51;
+}
+
+.subtitle{
+font:16px Arial;
+letter-spacing:1px;
+color:#8c5b6f;
+}
+
+.music-gate{
+position:fixed;
+inset:0;
+z-index:9999;
+display:flex;
+align-items:center;
+justify-content:center;
+background:linear-gradient(135deg,#7d2f51,#d94e78,#ffd2e2);
+transition:.7s;
+}
+
+.music-gate.hide{
+opacity:0;
+visibility:hidden;
+pointer-events:none;
+}
+
+.music-card{
+width:min(90%,420px);
+padding:40px 28px;
+text-align:center;
+background:#ffffffee;
+border-radius:30px;
+box-shadow:0 25px 70px #4b263855;
+}
+
+.music-note{
+font-size:55px;
+animation:pulse 1.5s infinite;
+}
+
+.music-card h2{
+color:#7d2f51;
+font-size:32px;
+margin:12px 0;
+}
+
+.music-card p{
+font:15px Arial;
+color:#805b69;
+}
+
+.music-card button{
+border:0;
+padding:15px 25px;
+border-radius:999px;
+background:#7d2f51;
+color:white;
+font:600 15px Arial;
+cursor:pointer;
+}
+
+.music-card small{
+display:block;
+margin-top:15px;
+color:#9a7180;
+font:11px Arial;
+}
+
+.music-control{
+position:fixed;
+right:18px;
+top:18px;
+z-index:1000;
+width:46px;
+height:46px;
+border:0;
+border-radius:50%;
+background:#ffffffdd;
+box-shadow:0 8px 25px #7d2f5130;
+cursor:pointer;
+font-size:20px;
+}
+
+@keyframes pulse{
+50%{transform:scale(1.12)}
+}
+
+.gift{
+width:130px;
+height:105px;
+margin:38px auto 20px;
+position:relative;
+cursor:pointer;
+}
+
+.box{
+position:absolute;
+bottom:0;
+left:10px;
+width:110px;
+height:75px;
+background:#d94e78;
+border-radius:8px;
+}
+
+.lid{
+position:absolute;
+left:3px;
+top:15px;
+width:124px;
+height:25px;
+background:#bd3b63;
+border-radius:7px;
+transition:.7s;
+z-index:3;
+}
+
+.ribbonV{
+position:absolute;
+left:54px;
+top:0;
+width:22px;
+height:105px;
+background:#ffd5e2;
+z-index:2;
+}
+
+.gift.open .lid{
+transform:translateY(-45px) rotate(-6deg);
+}
+
+.tap{
+font:600 13px Arial;
+color:#9a4767;
+}
+
+.btn{
+display:inline-block;
+margin-top:25px;
+padding:14px 24px;
+border-radius:999px;
+background:#7d2f51;
+color:white;
+text-decoration:none;
+font:600 14px Arial;
+}
+
+.section-title{
+font-size:clamp(34px,8vw,60px);
+text-align:center;
+margin:0 0 12px;
+color:#7d2f51;
+}
+
+.center{text-align:center}
+
+.note{
+font:15px/1.7 Arial;
+color:#805b69;
+max-width:650px;
+margin:0 auto 30px;
+}
+
+.gallery{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+gap:14px;
+max-width:900px;
+margin:30px auto;
+}
+
+.gallery img{
+width:100%;
+aspect-ratio:4/5;
+object-fit:cover;
+border-radius:20px;
+box-shadow:0 12px 30px #7d2f511c;
+}
+
+.cards{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+gap:14px;
+max-width:760px;
+margin:30px auto;
+}
+
+.card{
+background:#fff0f5;
+border:1px solid #f5cbd9;
+border-radius:22px;
+padding:25px;
+min-height:150px;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+font:600 16px/1.5 Arial;
+}
+
+.letter{
+background:linear-gradient(135deg,#fff0f5,#ffe0eb);
+}
+
+.envelope{
+max-width:650px;
+margin:20px auto;
+background:white;
+border-radius:25px;
+padding:35px;
+box-shadow:0 20px 50px #7d2f5120;
+font:16px/1.8 Georgia;
+}
+
+.final{
+background:#7d2f51;
+color:white;
+text-align:center;
+}
+
+.final .section-title{color:white}
+.final .note{color:#f8dbe5}
+
+.spark{
+position:fixed;
+inset:0;
+pointer-events:none;
+overflow:hidden;
+}
+
+.heart{
+position:absolute;
+font-size:20px;
+animation:float 7s linear infinite;
+opacity:.65;
+}
+
+@keyframes float{
+from{transform:translateY(110vh) rotate(0);opacity:0}
+to{transform:translateY(-15vh) rotate(360deg);opacity:0}
+}
+
+@media(max-width:600px){
+section{padding:55px 16px}
+.gallery{grid-template-columns:repeat(2,1fr)}
+.cards{grid-template-columns:1fr 1fr}
+.card{min-height:130px;padding:18px;font-size:14px}
+}
+</style>
+</head>
+
+<body>
+
+<div class="music-gate" id="musicGate">
+<div class="music-card">
+<div class="music-note">🎵</div>
+<h2>For Palak ♡</h2>
+<p>Tap to enter the surprise</p>
+<button id="enterBtn">Enter & Play Music</button>
+<small>Music starts with your entry</small>
+</div>
+</div>
+
+<audio id="bgMusic" loop preload="auto">
+<source src="taare-farak.mp3" type="audio/mpeg">
+</audio>
+
+<button class="music-control" id="musicControl">🔊</button>
+
+<section class="hero">
+
+<div class="wrap">
+
+<div class="kicker">
+A little surprise, just for you
+</div>
+
+<h1>Palak ♡</h1>
+
+<div class="subtitle">
+Because some people deserve their own little corner of the internet.
+</div>
+
+<div class="gift" id="gift">
+
+<div class="lid"></div>
+<div class="ribbonV"></div>
+<div class="box"></div>
+
+</div>
+
+<div class="tap">
+Tap the gift 🎁
+</div>
+
+<a class="btn" href="#memories">
+Open the surprise ↓
+</a>
+
+</div>
+
+</section>
+
+<section id="memories">
+
+<div class="wrap center">
+
+<div class="kicker">
+The gallery
+</div>
+
+<h2 class="section-title">
+A few favourite frames 📸
+</h2>
+
+<p class="note">
+No filters needed here. Just Palak being Palak.
+</p>
+
+<div class="gallery">
+
+<img src="photos/palak_1.jpg">
+<img src="photos/palak_2.jpg">
+<img src="photos/palak_3.jpg">
+<img src="photos/palak_4.jpg">
+<img src="photos/palak_5.jpg">
+
+</div>
+
+</div>
+
+</section>
+
+<section>
+
+<div class="wrap center">
+
+<div class="kicker">
+Friendship, but make it cute
+</div>
+
+<h2 class="section-title">
+Why you're special ✨
+</h2>
+
+<div class="cards">
+
+<div class="card">
+For the random conversations that somehow become memories.
+</div>
+
+<div class="card">
+For the laughs that arrive at exactly the wrong time 😂
+</div>
+
+<div class="card">
+For being a genuinely important person in my life.
+</div>
+
+<div class="card">
+And simply… for being you. ♡
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="letter">
+
+<div class="wrap center">
+
+<div class="kicker">
+Open slowly
+</div>
+
+<h2 class="section-title">
+A tiny letter 💌
+</h2>
+
+<div class="envelope">
+
+<p>Dear Palak,</p>
+
+<p>
+Some friendships don't need a huge explanation.
+They just quietly become a part of your life
+and make ordinary days a little better.
+</p>
+
+<p>
+So this isn't a fancy gift.
+It's just a small digital reminder that you're important,
+your memories matter, and I hope the coming year
+gives you plenty of reasons to smile.
+</p>
+
+<p>
+Stay exactly the kind of person you are.
+And yes, keep making those random memories. 😄
+</p>
+
+<p>— Your close friend ♡</p>
+
+</div>
+
+<p class="note">
+🎵 Taree — Farak
+</p>
+
+</div>
+
+</section>
+
+<section class="final">
+
+<div class="wrap center">
+
+<div class="kicker" style="color:#f3bfd0">
+One last thing
+</div>
+
+<h2 class="section-title">
+Happy Birthday, Palak! 🎂
+</h2>
+
+<p class="note">
+May your next chapter be full of good people,
+beautiful moments, unexpected adventures
+and a ridiculous amount of happiness.
+</p>
+
+<a class="btn"
+href="#"
+style="background:white;color:#7d2f51">
+Replay the surprise ↺
+</a>
+
+</div>
+
+</section>
+
+<script>
+
+const bgMusic=document.getElementById("bgMusic");
+const musicGate=document.getElementById("musicGate");
+const enterBtn=document.getElementById("enterBtn");
+const musicControl=document.getElementById("musicControl");
+
+async function startMusic(){
+
+try{
+
+await bgMusic.play();
+
+musicGate.classList.add("hide");
+
+}catch(e){
+
+musicGate.classList.remove("hide");
+
+}
+
+}
+
+window.addEventListener("load",()=>{
+startMusic();
+});
+
+enterBtn.addEventListener("click",async()=>{
+
+try{
+
+await bgMusic.play();
+
+musicGate.classList.add("hide");
+
+}catch(e){}
+
+});
+
+musicControl.addEventListener("click",async()=>{
+
+if(bgMusic.paused){
+
+await bgMusic.play();
+
+musicControl.textContent="🔊";
+
+}else{
+
+bgMusic.pause();
+
+musicControl.textContent="🔇";
+
+}
+
+});
+
+const gift=document.getElementById("gift");
+
+gift.addEventListener("click",()=>{
+
+gift.classList.toggle("open");
+
+for(let i=0;i<18;i++){
+
+const s=document.createElement("span");
+
+s.textContent=["♡","✦","🎀","✨"]
+[Math.floor(Math.random()*4)];
+
+s.style.position="fixed";
+s.style.left=(50+Math.random()*20-10)+"vw";
+s.style.top="42vh";
+s.style.fontSize=(16+Math.random()*18)+"px";
+s.style.zIndex=20;
+s.style.transition="1.4s";
+
+document.body.appendChild(s);
+
+requestAnimationFrame(()=>{
+
+s.style.transform=
+`translate(${(Math.random()-.5)*260}px,
+${(Math.random()-.5)*300}px)
+rotate(${Math.random()*360}deg)`;
+
+s.style.opacity=0;
+
+});
+
+setTimeout(()=>s.remove(),1500);
+
+}
+
+});
+
+</script>
+
+</body>
+</html>
