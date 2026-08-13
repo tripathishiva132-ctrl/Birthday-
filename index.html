@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>For Palak ♡</title>
 
 <style>
@@ -11,10 +11,10 @@ html{scroll-behavior:smooth}
 
 body{
 margin:0;
-font-family:Georgia,"Times New Roman",serif;
+font-family:Georgia,'Times New Roman',serif;
 background:#fff7fb;
 color:#4b2638;
-overflow-x:hidden;
+overflow-x:hidden
 }
 
 section{
@@ -22,12 +22,13 @@ min-height:100vh;
 padding:70px 20px;
 display:flex;
 align-items:center;
-justify-content:center;
+justify-content:center
 }
 
 .hero{
+position:relative;
 text-align:center;
-background:radial-gradient(circle at 50% 20%,#fff,#ffe6f0 55%,#ffd2e2);
+background:radial-gradient(circle at 50% 20%,#fff,#ffe6f0 55%,#ffd2e2)
 }
 
 .wrap{max-width:900px;width:100%}
@@ -36,21 +37,23 @@ background:radial-gradient(circle at 50% 20%,#fff,#ffe6f0 55%,#ffd2e2);
 letter-spacing:4px;
 text-transform:uppercase;
 font:600 12px Arial;
-color:#b05b7d;
+color:#b05b7d
 }
 
 h1{
 font-size:clamp(52px,15vw,110px);
 line-height:.9;
 margin:18px 0;
-color:#7d2f51;
+color:#7d2f51
 }
 
 .subtitle{
 font:16px Arial;
 letter-spacing:1px;
-color:#8c5b6f;
+color:#8c5b6f
 }
+
+/* MUSIC SCREEN */
 
 .music-gate{
 position:fixed;
@@ -60,13 +63,13 @@ display:flex;
 align-items:center;
 justify-content:center;
 background:linear-gradient(135deg,#7d2f51,#d94e78,#ffd2e2);
-transition:.7s;
+transition:.7s
 }
 
 .music-gate.hide{
 opacity:0;
 visibility:hidden;
-pointer-events:none;
+pointer-events:none
 }
 
 .music-card{
@@ -75,23 +78,23 @@ padding:40px 28px;
 text-align:center;
 background:#ffffffee;
 border-radius:30px;
-box-shadow:0 25px 70px #4b263855;
+box-shadow:0 25px 70px #4b263855
 }
 
 .music-note{
 font-size:55px;
-animation:pulse 1.5s infinite;
+animation:pulse 1.5s infinite
 }
 
 .music-card h2{
 color:#7d2f51;
 font-size:32px;
-margin:12px 0;
+margin:12px 0
 }
 
 .music-card p{
 font:15px Arial;
-color:#805b69;
+color:#805b69
 }
 
 .music-card button{
@@ -102,13 +105,14 @@ background:#7d2f51;
 color:white;
 font:600 15px Arial;
 cursor:pointer;
+box-shadow:0 10px 30px #7d2f5140
 }
 
 .music-card small{
 display:block;
 margin-top:15px;
 color:#9a7180;
-font:11px Arial;
+font:11px Arial
 }
 
 .music-control{
@@ -123,12 +127,14 @@ border-radius:50%;
 background:#ffffffdd;
 box-shadow:0 8px 25px #7d2f5130;
 cursor:pointer;
-font-size:20px;
+font-size:20px
 }
 
 @keyframes pulse{
 50%{transform:scale(1.12)}
 }
+
+/* GIFT */
 
 .gift{
 width:130px;
@@ -136,6 +142,7 @@ height:105px;
 margin:38px auto 20px;
 position:relative;
 cursor:pointer;
+filter:drop-shadow(0 14px 15px #c9799560)
 }
 
 .box{
@@ -145,7 +152,7 @@ left:10px;
 width:110px;
 height:75px;
 background:#d94e78;
-border-radius:8px;
+border-radius:8px
 }
 
 .lid{
@@ -157,7 +164,7 @@ height:25px;
 background:#bd3b63;
 border-radius:7px;
 transition:.7s;
-z-index:3;
+z-index:3
 }
 
 .ribbonV{
@@ -167,16 +174,16 @@ top:0;
 width:22px;
 height:105px;
 background:#ffd5e2;
-z-index:2;
+z-index:2
 }
 
 .gift.open .lid{
-transform:translateY(-45px) rotate(-6deg);
+transform:translateY(-45px) rotate(-6deg)
 }
 
 .tap{
 font:600 13px Arial;
-color:#9a4767;
+color:#9a4767
 }
 
 .btn{
@@ -188,13 +195,16 @@ background:#7d2f51;
 color:white;
 text-decoration:none;
 font:600 14px Arial;
+box-shadow:0 10px 30px #7d2f5140
 }
+
+/* CONTENT */
 
 .section-title{
 font-size:clamp(34px,8vw,60px);
 text-align:center;
 margin:0 0 12px;
-color:#7d2f51;
+color:#7d2f51
 }
 
 .center{text-align:center}
@@ -203,7 +213,7 @@ color:#7d2f51;
 font:15px/1.7 Arial;
 color:#805b69;
 max-width:650px;
-margin:0 auto 30px;
+margin:0 auto 30px
 }
 
 .gallery{
@@ -211,7 +221,7 @@ display:grid;
 grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
 gap:14px;
 max-width:900px;
-margin:30px auto;
+margin:30px auto
 }
 
 .gallery img{
@@ -220,6 +230,15 @@ aspect-ratio:4/5;
 object-fit:cover;
 border-radius:20px;
 box-shadow:0 12px 30px #7d2f511c;
+transition:.35s
+}
+
+.gallery img:hover{
+transform:translateY(-6px) rotate(-1deg)
+}
+
+.memory{
+background:#fff
 }
 
 .cards{
@@ -227,7 +246,7 @@ display:grid;
 grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
 gap:14px;
 max-width:760px;
-margin:30px auto;
+margin:30px auto
 }
 
 .card{
@@ -240,77 +259,151 @@ display:flex;
 align-items:center;
 justify-content:center;
 text-align:center;
-font:600 16px/1.5 Arial;
+font:600 16px/1.5 Arial
 }
 
 .letter{
-background:linear-gradient(135deg,#fff0f5,#ffe0eb);
+background:linear-gradient(135deg,#fff0f5,#ffe0eb)
 }
 
 .envelope{
 max-width:650px;
 margin:20px auto;
-background:white;
+background:#fff;
 border-radius:25px;
 padding:35px;
 box-shadow:0 20px 50px #7d2f5120;
-font:16px/1.8 Georgia;
+font:16px/1.8 Georgia
 }
 
 .final{
 background:#7d2f51;
 color:white;
-text-align:center;
+text-align:center
 }
 
-.final .section-title{color:white}
-.final .note{color:#f8dbe5}
+.final .section-title{
+color:white
+}
+
+.final .note{
+color:#f8dbe5
+}
+
+/* HEARTS */
 
 .spark{
 position:fixed;
 inset:0;
 pointer-events:none;
-overflow:hidden;
+overflow:hidden
 }
 
 .heart{
 position:absolute;
 font-size:20px;
 animation:float 7s linear infinite;
-opacity:.65;
+opacity:.65
 }
 
 @keyframes float{
-from{transform:translateY(110vh) rotate(0);opacity:0}
-to{transform:translateY(-15vh) rotate(360deg);opacity:0}
+from{
+transform:translateY(110vh) rotate(0);
+opacity:0
+}
+
+15%{
+opacity:.7
+}
+
+to{
+transform:translateY(-15vh) rotate(360deg);
+opacity:0
+}
+}
+
+.reveal{
+opacity:0;
+transform:translateY(25px);
+transition:1s
+}
+
+.reveal.show{
+opacity:1;
+transform:none
 }
 
 @media(max-width:600px){
-section{padding:55px 16px}
-.gallery{grid-template-columns:repeat(2,1fr)}
-.cards{grid-template-columns:1fr 1fr}
-.card{min-height:130px;padding:18px;font-size:14px}
+
+section{
+padding:55px 16px
+}
+
+.gallery{
+grid-template-columns:repeat(2,1fr)
+}
+
+.cards{
+grid-template-columns:1fr 1fr
+}
+
+.card{
+min-height:130px;
+padding:18px;
+font-size:14px
+}
+
 }
 </style>
 </head>
 
 <body>
 
+<!-- MUSIC ENTRY -->
+
 <div class="music-gate" id="musicGate">
+
 <div class="music-card">
+
 <div class="music-note">🎵</div>
+
 <h2>For Palak ♡</h2>
+
 <p>Tap to enter the surprise</p>
-<button id="enterBtn">Enter & Play Music</button>
-<small>Music starts with your entry</small>
+
+<button id="enterBtn">
+Enter & Play Music
+</button>
+
+<small>
+If your browser allows autoplay, the music may already be playing.
+</small>
+
 </div>
+
 </div>
+
+
+<!-- MUSIC -->
 
 <audio id="bgMusic" loop preload="auto">
+
 <source src="taare-farak.mp3" type="audio/mpeg">
+
 </audio>
 
-<button class="music-control" id="musicControl">🔊</button>
+<button
+class="music-control"
+id="musicControl"
+aria-label="Music control">
+🔊
+</button>
+
+
+<div class="spark" id="spark"></div>
+
+
+<!-- HOME -->
 
 <section class="hero">
 
@@ -320,37 +413,56 @@ section{padding:55px 16px}
 A little surprise, just for you
 </div>
 
-<h1>Palak ♡</h1>
+<h1>
+Palak ♡
+</h1>
 
 <div class="subtitle">
 Because some people deserve their own little corner of the internet.
 </div>
 
-<div class="gift" id="gift">
+
+<div
+class="gift"
+id="gift"
+aria-label="Open gift">
 
 <div class="lid"></div>
+
 <div class="ribbonV"></div>
+
 <div class="box"></div>
 
 </div>
+
 
 <div class="tap">
 Tap the gift 🎁
 </div>
 
-<a class="btn" href="#memories">
+
+<a
+class="btn"
+href="#memories">
+
 Open the surprise ↓
+
 </a>
 
 </div>
 
 </section>
 
-<section id="memories">
 
-<div class="wrap center">
+<!-- GALLERY -->
 
-<div class="kicker">
+<section
+id="memories"
+class="memory">
+
+<div class="wrap reveal">
+
+<div class="kicker center">
 The gallery
 </div>
 
@@ -358,17 +470,32 @@ The gallery
 A few favourite frames 📸
 </h2>
 
-<p class="note">
+<p class="note center">
 No filters needed here. Just Palak being Palak.
 </p>
 
+
 <div class="gallery">
 
-<img src="photos/palak_1.jpg">
-<img src="photos/palak_2.jpg">
-<img src="photos/palak_3.jpg">
-<img src="photos/palak_4.jpg">
-<img src="photos/palak_5.jpg">
+<img
+src="photos/palak_1.jpg"
+alt="Palak portrait">
+
+<img
+src="photos/palak_2.jpg"
+alt="Palak portrait">
+
+<img
+src="photos/palak_3.jpg"
+alt="Palak memory">
+
+<img
+src="photos/palak_4.jpg"
+alt="Palak portrait">
+
+<img
+src="photos/palak_5.jpg"
+alt="Palak outdoors">
 
 </div>
 
@@ -376,9 +503,12 @@ No filters needed here. Just Palak being Palak.
 
 </section>
 
+
+<!-- FRIENDSHIP -->
+
 <section>
 
-<div class="wrap center">
+<div class="wrap reveal center">
 
 <div class="kicker">
 Friendship, but make it cute
@@ -387,6 +517,7 @@ Friendship, but make it cute
 <h2 class="section-title">
 Why you're special ✨
 </h2>
+
 
 <div class="cards">
 
@@ -412,11 +543,14 @@ And simply… for being you. ♡
 
 </section>
 
+
+<!-- LETTER -->
+
 <section class="letter">
 
-<div class="wrap center">
+<div class="wrap reveal">
 
-<div class="kicker">
+<div class="kicker center">
 Open slowly
 </div>
 
@@ -424,9 +558,12 @@ Open slowly
 A tiny letter 💌
 </h2>
 
+
 <div class="envelope">
 
-<p>Dear Palak,</p>
+<p>
+Dear Palak,
+</p>
 
 <p>
 Some friendships don't need a huge explanation.
@@ -446,52 +583,86 @@ Stay exactly the kind of person you are.
 And yes, keep making those random memories. 😄
 </p>
 
-<p>— Your close friend ♡</p>
+<p>
+— Your close friend ♡
+</p>
 
 </div>
 
+
+<div class="center">
+
 <p class="note">
-🎵 Taree — Farak
+🎵 Vibe of the day:
+<b>Taree — Farak</b>
 </p>
+
+</div>
 
 </div>
 
 </section>
 
+
+<!-- FINAL -->
+
 <section class="final">
 
-<div class="wrap center">
+<div class="wrap reveal center">
 
-<div class="kicker" style="color:#f3bfd0">
+<div
+class="kicker"
+style="color:#f3bfd0">
+
 One last thing
+
 </div>
+
 
 <h2 class="section-title">
 Happy Birthday, Palak! 🎂
 </h2>
 
+
 <p class="note">
+
 May your next chapter be full of good people,
 beautiful moments, unexpected adventures
 and a ridiculous amount of happiness.
+
 </p>
 
-<a class="btn"
-href="#"
+
+<a
+class="btn"
+href="#top"
 style="background:white;color:#7d2f51">
+
 Replay the surprise ↺
+
 </a>
 
 </div>
 
 </section>
 
+
 <script>
 
-const bgMusic=document.getElementById("bgMusic");
-const musicGate=document.getElementById("musicGate");
-const enterBtn=document.getElementById("enterBtn");
-const musicControl=document.getElementById("musicControl");
+/* MUSIC */
+
+const bgMusic =
+document.getElementById('bgMusic');
+
+const musicGate =
+document.getElementById('musicGate');
+
+const enterBtn =
+document.getElementById('enterBtn');
+
+const musicControl =
+document.getElementById('musicControl');
+
 
 async function startMusic(){
 
@@ -499,88 +670,210 @@ try{
 
 await bgMusic.play();
 
-musicGate.classList.add("hide");
+musicGate.classList.add('hide');
+
+musicControl.textContent='🔊';
 
 }catch(e){
 
-musicGate.classList.remove("hide");
+/*
+Mobile browser may block autoplay.
+The Enter button will still work.
+*/
 
 }
 
 }
 
-window.addEventListener("load",()=>{
-startMusic();
-});
 
-enterBtn.addEventListener("click",async()=>{
+window.addEventListener(
+'load',
+startMusic
+);
+
+
+/* IMPORTANT:
+   After user taps, ALWAYS open website.
+*/
+
+enterBtn.addEventListener(
+'click',
+async ()=>{
+
+musicGate.classList.add('hide');
 
 try{
 
 await bgMusic.play();
 
-musicGate.classList.add("hide");
+musicControl.textContent='🔊';
 
-}catch(e){}
+}catch(e){
 
-});
-
-musicControl.addEventListener("click",async()=>{
-
-if(bgMusic.paused){
-
-await bgMusic.play();
-
-musicControl.textContent="🔊";
-
-}else{
-
-bgMusic.pause();
-
-musicControl.textContent="🔇";
+musicControl.textContent='🔇';
 
 }
 
 });
 
-const gift=document.getElementById("gift");
 
-gift.addEventListener("click",()=>{
+/* MUSIC ON/OFF */
 
-gift.classList.toggle("open");
+musicControl.addEventListener(
+'click',
+async ()=>{
+
+if(bgMusic.paused){
+
+try{
+
+await bgMusic.play();
+
+musicControl.textContent='🔊';
+
+}catch(e){}
+
+}else{
+
+bgMusic.pause();
+
+musicControl.textContent='🔇';
+
+}
+
+});
+
+
+/* GIFT */
+
+const gift =
+document.getElementById('gift');
+
+
+gift.addEventListener(
+'click',
+()=>{
+
+gift.classList.toggle('open');
+
+burst();
+
+});
+
+
+/* CONFETTI */
+
+function burst(){
 
 for(let i=0;i<18;i++){
 
-const s=document.createElement("span");
+const s =
+document.createElement('span');
 
-s.textContent=["♡","✦","🎀","✨"]
-[Math.floor(Math.random()*4)];
+s.textContent =
+['♡','✦','🎀','✨']
+[
+Math.floor(
+Math.random()*4
+)
+];
 
-s.style.position="fixed";
-s.style.left=(50+Math.random()*20-10)+"vw";
-s.style.top="42vh";
-s.style.fontSize=(16+Math.random()*18)+"px";
+s.style.position='fixed';
+
+s.style.left =
+(50+Math.random()*20-10)+'vw';
+
+s.style.top='42vh';
+
+s.style.fontSize =
+(16+Math.random()*18)+'px';
+
 s.style.zIndex=20;
-s.style.transition="1.4s";
+
+s.style.transition='1.4s';
 
 document.body.appendChild(s);
 
+
 requestAnimationFrame(()=>{
 
-s.style.transform=
-`translate(${(Math.random()-.5)*260}px,
-${(Math.random()-.5)*300}px)
+s.style.transform =
+`translate(
+${(Math.random()-.5)*260}px,
+${(Math.random()-.5)*300}px
+)
 rotate(${Math.random()*360}deg)`;
 
 s.style.opacity=0;
 
 });
 
-setTimeout(()=>s.remove(),1500);
+
+setTimeout(
+()=>s.remove(),
+1500
+);
 
 }
 
-});
+}
+
+
+/* SCROLL ANIMATION */
+
+const io =
+new IntersectionObserver(
+
+es=>es.forEach(e=>{
+
+if(e.isIntersecting)
+
+e.target.classList.add('show');
+
+}),
+
+{threshold:.12}
+
+);
+
+
+document
+.querySelectorAll('.reveal')
+.forEach(
+x=>io.observe(x)
+);
+
+
+/* FLOATING HEARTS */
+
+const spark =
+document.getElementById('spark');
+
+
+for(let i=0;i<16;i++){
+
+const h =
+document.createElement('div');
+
+h.className='heart';
+
+h.textContent =
+Math.random()>.5
+?'♡'
+:'✦';
+
+h.style.left =
+Math.random()*100+'vw';
+
+h.style.animationDelay =
+(-Math.random()*7)+'s';
+
+h.style.animationDuration =
+(5+Math.random()*5)+'s';
+
+spark.appendChild(h);
+
+}
 
 </script>
 
