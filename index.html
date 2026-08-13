@@ -876,22 +876,28 @@ spark.appendChild(h);
 }
 
 </script>
-<audio id="audioPlayer" preload="auto">
-  <source src="Maine Pucha Chand Se.mp3" type="audio/mp3">
+<audio id="audioPlayer" controls preload="auto" style="display: none;">
+  <source src="./Maine Pucha Chand Se.mp3" type="audio/mp3">
 </audio>
 
 <script>
   function playAudio() {
     var audio = document.getElementById('audioPlayer');
-    if (audio && audio.paused) {
-      audio.play().catch(function(e) { console.log(e); });
+    if (audio) {
+      audio.play().then(function() {
+        console.log("Playing successfully!");
+      }).catch(function(error) {
+        console.log("Autoplay blocked, waiting for interaction:", error);
+      });
     }
   }
 
-  // Pehle hi tap / click / touch par play ho jaye
-  document.addEventListener('click', playAudio, { once: true });
-  document.addEventListener('touchstart', playAudio, { once: true });
+  // Touch, Click ya Scroll hote hi play hoga
+  ['click', 'touchstart', 'scroll', 'keydown'].forEach(function(evt) {
+    document.addEventListener(evt, playAudio, { once: true });
+  });
 </script>
+
 
 
 
