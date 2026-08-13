@@ -876,9 +876,23 @@ spark.appendChild(h);
 }
 
 </script>
-<audio id="audioPlayer" controls style="width: 100%; max-width: 300px;">
+<audio id="audioPlayer" preload="auto">
   <source src="Maine Pucha Chand Se.mp3" type="audio/mp3">
 </audio>
+
+<script>
+  function playAudio() {
+    var audio = document.getElementById('audioPlayer');
+    if (audio && audio.paused) {
+      audio.play().catch(function(e) { console.log(e); });
+    }
+  }
+
+  // Pehle hi tap / click / touch par play ho jaye
+  document.addEventListener('click', playAudio, { once: true });
+  document.addEventListener('touchstart', playAudio, { once: true });
+</script>
+
 
 
    
