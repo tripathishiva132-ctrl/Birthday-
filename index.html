@@ -876,9 +876,19 @@ spark.appendChild(h);
 }
 
 </script>
-<audio controls autoplay>
-  <source src="https://drive.google.com/uc?export=download&id=17E3_Bbqaxj82yfYBRbQh4a3pZtoRr2dm" type="audio/mp3">
+<audio id="audioPlayer" controls style="width: 100%; max-width: 300px;">
+  <source src="https://docs.google.com/uc?export=download&id=17E3_Bbqaxj82yfYBRbQh4a3pZtoRr2dm" type="audio/mp3">
 </audio>
+
+<script>
+  window.addEventListener('click', function() {
+    var audio = document.getElementById('audioPlayer');
+    if (audio.paused) {
+      audio.play();
+    }
+  }, { once: true });
+</script>
+   
 
 
 </body>
