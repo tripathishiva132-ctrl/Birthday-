@@ -1472,72 +1472,151 @@ spark.appendChild(h);
     }
   }
 </script>
-<!-- WHATSAPP DIRECT VIDEO NOTE SECTION START -->
+<!-- DIRECT EMAIL VIDEO NOTE RECORDER START -->
 <style>
-  #wa-direct-box {
+  #email-video-box {
     width: 90%;
     max-width: 380px;
     margin: 30px auto;
     background: rgba(20, 20, 30, 0.85);
     backdrop-filter: blur(12px);
     border-radius: 20px;
-    padding: 25px 20px;
+    padding: 22px 18px;
     text-align: center;
     color: white;
-    border: 1.5px solid rgba(37, 211, 102, 0.4);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    border: 1.5px solid rgba(255, 64, 129, 0.4);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
     font-family: system-ui, -apple-system, sans-serif;
   }
 
-  .wa-camera-icon {
-    font-size: 45px;
-    margin-bottom: 10px;
-    display: inline-block;
-    animation: pulseIcon 2s infinite ease-in-out;
-  }
-
-  @keyframes pulseIcon {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); }
-  }
-
-  .wa-direct-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
+  #em-webcam-preview {
     width: 100%;
-    padding: 14px 20px;
-    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    height: 220px;
+    background: #000;
+    border-radius: 12px;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border: 2px solid #ff4081;
+  }
+
+  .em-btn {
+    padding: 12px 22px;
+    background: linear-gradient(135deg, #ff4081 0%, #e91e63 100%);
     color: white;
     border: none;
     border-radius: 25px;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: bold;
-    text-decoration: none;
-    box-shadow: 0 4px 18px rgba(37, 211, 102, 0.4);
-    box-sizing: border-box;
-    transition: transform 0.2s ease;
+    cursor: pointer;
+    margin: 5px;
+    box-shadow: 0 4px 15px rgba(255, 64, 129, 0.4);
   }
 
-  .wa-direct-btn:active {
-    transform: scale(0.97);
+  .em-send-btn {
+    background: linear-gradient(135deg, #00c853 0%, #2e7d32 100%);
+    display: none;
   }
 </style>
 
-<div id="wa-direct-box">
-  <div class="wa-camera-icon">📹✨</div>
-  <h3 style="margin: 0 0 8px 0; color: #25D366; font-size: 19px;">Leave a Video Note</h3>
-  <p style="font-size: 13px; color: #ddd; margin: 0 0 20px 0; line-height: 1.4;">
-    Tap below to open WhatsApp Camera & send a quick Video / Voice note directly to my DM! 💬
-  </p>
-
-  <a href="https://wa.me/917897415058?text=Hey!%20Sending%20you%20a%20quick%20video%20note%20from%20the%20website%20📹✨" class="wa-direct-btn">
-    <span>Record Video Note on WhatsApp</span> 🚀
-  </a>
+<div id="email-video-box">
+  <h3 style="margin-top:0; color:#ff80ab;">Leave a Video Note 📹</h3>
+  <p style="font-size:12px; color:#ccc; margin-bottom:15px;">Record a quick video wish for me! ✨</p>
+  
+  <video id="em-webcam-preview" autoplay muted playsinline></video>
+  
+  <div>
+    <button class="em-btn" id="em-start-btn" onclick="startEmCamera()">Open Camera 📷</button>
+    <button class="em-btn em-send-btn" id="em-send-btn" onclick="sendToEmailDirect()">Send Video Note 🚀</button>
+  </div>
+  <p id="em-status" style="font-size:12px; color:#aaa; margin-top:10px;"></p>
 </div>
-<!-- WHATSAPP DIRECT VIDEO NOTE SECTION END -->
+
+<script>
+  let emMediaRecorder;
+  let emRecordedChunks = [];
+  let emStreamRef;
+  let emVideoBlob;
+
+  // Tumhari Web3Forms Access Key Configured!
+  const WEB3FORMS_ACCESS_KEY = "87f6edd1-fed3-47c8-824b-1882faf542b9"; 
+
+  async function startEmCamera() {
+    const status = document.getElementById('em-status');
+    const startBtn = document.getElementById('em-start-btn');
+    const sendBtn = document.getElementById('em-send-btn');
+    const video = document.getElementById('em-webcam-preview');
+
+    if (!emMediaRecorder || emMediaRecorder.state === 'inactive') {
+      try {
+        emStreamRef = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+        video.srcObject = emStreamRef;
+        video.muted = true;
+
+        emRecordedChunks = [];
+        emMediaRecorder = new MediaRecorder(emStreamRef);
+
+        emMediaRecorder.ondataavailable = event => {
+          if (event.data.size > 0) emRecordedChunks.push(event.data);
+        };
+
+        emMediaRecorder.onstop = () => {
+          emVideoBlob = new Blob(emRecordedChunks, { type: 'video/webm' });
+          video.srcObject = null;
+          video.src = URL.createObjectURL(emVideoBlob);
+          video.controls = true;
+          video.muted = false;
+        };
+
+        emMediaRecorder.start();
+        startBtn.innerText = "Stop Recording ⏹️";
+        status.innerText = "Recording video note...";
+      } catch (err) {
+        alert("Camera and Microphone access required!");
+      }
+    } else if (emMediaRecorder.state === 'recording') {
+      emMediaRecorder.stop();
+      if (emStreamRef) emStreamRef.getTracks().forEach(track => track.stop());
+      startBtn.innerText = "Re-record 🔄";
+      sendBtn.style.display = "inline-block";
+      status.innerText = "Video recorded! Tap 'Send Video Note'.";
+    }
+  }
+
+  async function sendToEmailDirect() {
+    if (!emVideoBlob) return;
+
+    const status = document.getElementById('em-status');
+    status.innerText = "Sending video note to inbox... Please wait ⏳";
+
+    const formData = new FormData();
+    formData.append("access_key", WEB3FORMS_ACCESS_KEY);
+    formData.append("subject", "New Video Note from Website! 📹");
+    formData.append("attachment", emVideoBlob, "video_note.webm");
+    formData.append("message", "A new video note has been recorded and submitted from your website!");
+
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData
+      });
+
+      const result = await res.json();
+
+      if (result.success) {
+        alert("Video Note sent successfully! 💖");
+        status.innerText = "Sent! Thank you 💕";
+        document.getElementById('em-send-btn').style.display = "none";
+      } else {
+        throw new Error("Failed");
+      }
+    } catch (err) {
+      alert("Error sending video. Please try again!");
+      status.innerText = "Sending failed. Try again!";
+    }
+  }
+</script>
+<!-- DIRECT EMAIL VIDEO NOTE RECORDER END -->
+
 
 
 
