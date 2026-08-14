@@ -1319,6 +1319,85 @@ spark.appendChild(h);
   }
 </script>
 <!-- PREMIUM INTERACTIVE SURPRISES END -->
+<!-- REPLY FORM TO WHATSAPP START -->
+<style>
+  #reply-section {
+    width: 90%;
+    max-width: 380px;
+    margin: 40px auto;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 25px 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    border: 2px solid #fff;
+    text-align: center;
+    box-sizing: border-box;
+    font-family: system-ui, -apple-system, sans-serif;
+  }
+
+  .reply-input {
+    width: 100%;
+    height: 85px;
+    border: 1.5px solid #ff9a9e;
+    border-radius: 12px;
+    padding: 12px;
+    font-size: 14px;
+    outline: none;
+    resize: none;
+    box-sizing: border-box;
+    margin: 15px 0;
+  }
+
+  .send-btn {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+  }
+</style>
+
+<div id="reply-section">
+  <h3 style="margin: 0; color: #333; font-size: 20px;">Send a Reply Back 💌</h3>
+  <p style="margin: 5px 0 0 0; font-size: 13px; opacity: 0.8; color: #555;">
+    Type a secret note or reaction below!
+  </p>
+
+  <textarea id="user-reply" class="reply-input" placeholder="Type your message here... 💖"></textarea>
+
+  <button class="send-btn" onclick="sendToWhatsApp()">
+    <span>Send Reply via WhatsApp</span> 💬
+  </button>
+</div>
+
+<script>
+  function sendToWhatsApp() {
+    const myPhoneNumber = "917897415058"; 
+    
+    const message = document.getElementById('user-reply').value;
+    
+    if (!message.trim()) {
+      alert("Please type a message before sending! 😊");
+      return;
+    }
+
+    const fullMessage = `Hey! I saw the birthday surprise website! 🎈%0A%0A*My Message:* ${encodeURIComponent(message)}`;
+    const whatsappUrl = `https://wa.me/${myPhoneNumber}?text=${fullMessage}`;
+
+    window.open(whatsappUrl, '_blank');
+  }
+</script>
+<!-- REPLY FORM TO WHATSAPP END -->
 
 
 
