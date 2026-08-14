@@ -1107,6 +1107,48 @@ spark.appendChild(h);
   }
 </script>
 <!-- CATCH THE CAKE GAME (FULL PAGE VIEW) END -->
+<!-- MAGIC HEART TRAIL EFFECT START -->
+<script>
+  (function() {
+    const colors = ['#ff4081', '#ff80ab', '#ff4081', '#e91e63', '#ffffff'];
+    
+    function createSparkle(x, y) {
+      const sparkle = document.createElement('div');
+      sparkle.className = 'magic-sparkle';
+      sparkle.innerHTML = Math.random() > 0.5 ? '💖' : '✨';
+      sparkle.style.left = x + 'px';
+      sparkle.style.top = y + 'px';
+      sparkle.style.fontSize = (Math.random() * 12 + 10) + 'px';
+      sparkle.style.position = 'fixed';
+      sparkle.style.pointerEvents = 'none';
+      sparkle.style.zIndex = '99999';
+      sparkle.style.transition = 'transform 0.8s ease-out, opacity 0.8s ease-out';
+      sparkle.style.transform = `translate(-50%, -50%) scale(1) translate(${(Math.random() - 0.5) * 30}px, ${(Math.random() - 0.5) * 30}px)`;
+      
+      document.body.appendChild(sparkle);
+
+      setTimeout(() => {
+        sparkle.style.transform = `translate(-50%, -50%) scale(0) translate(${(Math.random() - 0.5) * 60}px, ${(Math.random() - 0.5) * 60}px)`;
+        sparkle.style.opacity = '0';
+      }, 50);
+
+      setTimeout(() => {
+        sparkle.remove();
+      }, 850);
+    }
+
+    window.addEventListener('touchmove', function(e) {
+      createSparkle(e.touches[0].clientX, e.touches[0].clientY);
+    });
+
+    window.addEventListener('mousemove', function(e) {
+      if (Math.random() > 0.3) {
+        createSparkle(e.clientX, e.clientY);
+      }
+    });
+  })();
+</script>
+<!-- MAGIC HEART TRAIL EFFECT END -->
 
 
 
