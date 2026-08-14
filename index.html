@@ -1472,7 +1472,7 @@ spark.appendChild(h);
     }
   }
 </script>
-<!-- DIRECT EMAIL VIDEO NOTE RECORDER START -->
+<!-- DIRECT EMAIL VIDEO NOTE RECORDER (FINAL VERSION) START -->
 <style>
   #email-video-box {
     width: 90%;
@@ -1520,7 +1520,7 @@ spark.appendChild(h);
 
 <div id="email-video-box">
   <h3 style="margin-top:0; color:#ff80ab;">Leave a Video Note 📹</h3>
-  <p style="font-size:12px; color:#ccc; margin-bottom:15px;">Record a quick video wish for me! ✨</p>
+  <p style="font-size:12px; color:#ccc; margin-bottom:15px;">Record a quick video (under 20s) for me! ✨</p>
   
   <video id="em-webcam-preview" autoplay muted playsinline></video>
   
@@ -1537,8 +1537,8 @@ spark.appendChild(h);
   let emStreamRef;
   let emVideoBlob;
 
-  // Tumhari Web3Forms Access Key Configured!
-  const WEB3FORMS_ACCESS_KEY = "87f6edd1-fed3-47c8-824b-1882faf542b9"; 
+  // New Access Key Configured
+  const WEB3FORMS_ACCESS_KEY = "34e54338-7c13-49ba-b909-dcafc4164de0"; 
 
   async function startEmCamera() {
     const status = document.getElementById('em-status');
@@ -1548,12 +1548,21 @@ spark.appendChild(h);
 
     if (!emMediaRecorder || emMediaRecorder.state === 'inactive') {
       try {
-        emStreamRef = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+        emStreamRef = await navigator.mediaDevices.getUserMedia({ 
+          video: { width: { ideal: 480 }, height: { ideal: 360 }, frameRate: { max: 15 } }, 
+          audio: true 
+        });
         video.srcObject = emStreamRef;
         video.muted = true;
 
         emRecordedChunks = [];
-        emMediaRecorder = new MediaRecorder(emStreamRef);
+        // Attempting to use a standard format for compatibility
+        const options = { mimeType: 'video/webm;codecs=vp8' };
+        try {
+          emMediaRecorder = new MediaRecorder(emStreamRef, options);
+        } catch(e) {
+          emMediaRecorder = new MediaRecorder(emStreamRef);
+        }
 
         emMediaRecorder.ondataavailable = event => {
           if (event.data.size > 0) emRecordedChunks.push(event.data);
@@ -1569,16 +1578,16 @@ spark.appendChild(h);
 
         emMediaRecorder.start();
         startBtn.innerText = "Stop Recording ⏹️";
-        status.innerText = "Recording video note...";
+        status.innerText = "Recording... (keep it brief)";
       } catch (err) {
-        alert("Camera and Microphone access required!");
+        alert("Camera access required!");
       }
     } else if (emMediaRecorder.state === 'recording') {
       emMediaRecorder.stop();
       if (emStreamRef) emStreamRef.getTracks().forEach(track => track.stop());
       startBtn.innerText = "Re-record 🔄";
       sendBtn.style.display = "inline-block";
-      status.innerText = "Video recorded! Tap 'Send Video Note'.";
+      status.innerText = "Ready to send!";
     }
   }
 
@@ -1586,13 +1595,13 @@ spark.appendChild(h);
     if (!emVideoBlob) return;
 
     const status = document.getElementById('em-status');
-    status.innerText = "Sending video note to inbox... Please wait ⏳";
+    status.innerText = "Sending... Please wait ⏳";
 
     const formData = new FormData();
     formData.append("access_key", WEB3FORMS_ACCESS_KEY);
-    formData.append("subject", "New Video Note from Website! 📹");
+    formData.append("subject", "New Video Note! 📹");
     formData.append("attachment", emVideoBlob, "video_note.webm");
-    formData.append("message", "A new video note has been recorded and submitted from your website!");
+    formData.append("message", "A new video note from your website.");
 
     try {
       const res = await fetch("https://api.web3forms.com/submit", {
@@ -1603,19 +1612,21 @@ spark.appendChild(h);
       const result = await res.json();
 
       if (result.success) {
-        alert("Video Note sent successfully! 💖");
+        alert("Sent successfully! 💖");
         status.innerText = "Sent! Thank you 💕";
         document.getElementById('em-send-btn').style.display = "none";
       } else {
-        throw new Error("Failed");
+        throw new Error("Size limit or API error");
       }
     } catch (err) {
-      alert("Error sending video. Please try again!");
-      status.innerText = "Sending failed. Try again!";
+      alert("Error: Video might be too big! Try a 10-15 second video.");
+      status.innerText = "Sending failed. Try shorter video!";
     }
   }
 </script>
 <!-- DIRECT EMAIL VIDEO NOTE RECORDER END -->
+
+  
 
 
 
