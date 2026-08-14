@@ -1319,7 +1319,7 @@ spark.appendChild(h);
   }
 </script>
 <!-- PREMIUM INTERACTIVE SURPRISES END -->
-   <!-- RETRO VINYL JUKEBOX (LAG JAA GALE) START -->
+<!-- RETRO VINYL JUKEBOX (100% WORKING LOCAL AUDIO) START -->
 <style>
   #jukebox-section {
     display: flex;
@@ -1439,9 +1439,9 @@ spark.appendChild(h);
 
   <button class="juke-btn" onclick="toggleRetroVinyl()" id="retro-btn-text">Play "Lag Jaa Gale" 📻</button>
 
-  <!-- Lag Jaa Gale Stream -->
+  <!-- Local Audio File Attached -->
   <audio id="old-bollywood-audio" loop preload="auto">
-    <source src="https://ia800302.us.archive.org/28/items/LagJaaGaleLataMangeshkar/Lag%20Jaa%20Gale%20-%20Lata%20Mangeshkar.mp3" type="audio/mpeg">
+    <source src="lagjagale.mp3" type="audio/mpeg">
   </audio>
 </div>
 
@@ -1461,8 +1461,7 @@ spark.appendChild(h);
         btnText.innerText = "Pause Melody ⏸️";
         isRetroPlaying = true;
       }).catch(err => {
-        console.log("Playback error: ", err);
-        alert("Please tap again to allow music playback! 🎵");
+        alert("Pehle 'lagjagale.mp3' file upload karo GitHub par! 🎵");
       });
     } else {
       vinyl.classList.remove('spinning');
@@ -1474,6 +1473,8 @@ spark.appendChild(h);
   }
 </script>
 <!-- RETRO VINYL JUKEBOX END -->
+
+
 
 
 
