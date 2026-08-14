@@ -1319,6 +1319,158 @@ spark.appendChild(h);
   }
 </script>
 <!-- PREMIUM INTERACTIVE SURPRISES END -->
+ <!-- RETRO VINYL JUKEBOX (OLD BOLLYWOOD) START -->
+<style>
+  #jukebox-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 40px auto;
+    padding: 25px 15px;
+    width: 90%;
+    max-width: 380px;
+    background: rgba(20, 20, 30, 0.7);
+    backdrop-filter: blur(12px);
+    border-radius: 24px;
+    border: 1.5px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    box-sizing: border-box;
+    color: white;
+    font-family: system-ui, -apple-system, sans-serif;
+  }
+
+  .record-player {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    background: #111;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: inset 0 0 15px rgba(255,255,255,0.1), 0 10px 25px rgba(0,0,0,0.6);
+    margin: 20px 0;
+    cursor: pointer;
+  }
+
+  .vinyl-disc {
+    width: 170px;
+    height: 170px;
+    background: repeating-radial-gradient(#222, #222 2px, #111 4px, #111 5px);
+    border-radius: 50%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 10px rgba(0,0,0,0.8);
+    transition: transform 0.5s ease;
+  }
+
+  .spinning {
+    animation: spinVinyl 3s linear infinite;
+  }
+
+  @keyframes spinVinyl {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .vinyl-center {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #d4af37, #f3e5ab);
+    border-radius: 50%;
+    border: 3px solid #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+  }
+
+  .tonearm {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 60px;
+    height: 80px;
+    border-right: 4px solid #ddd;
+    border-bottom: 4px solid #ddd;
+    border-bottom-right-radius: 25px;
+    transform-origin: top right;
+    transform: rotate(-30deg);
+    transition: transform 0.6s ease-in-out;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  .tonearm-active {
+    transform: rotate(0deg);
+  }
+
+  .juke-btn {
+    padding: 12px 28px;
+    background: linear-gradient(135deg, #d4af37 0%, #aa7c11 100%);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+    margin-top: 10px;
+  }
+</style>
+
+<div id="jukebox-section">
+  <h3 style="margin: 0; font-size: 18px; color: #f3e5ab;">Retro Old Bollywood Jukebox 🌹</h3>
+  <p style="margin: 5px 0 0 0; font-size: 12px; opacity: 0.8;">Tap the record to play Classic Romance!</p>
+
+  <div class="record-player" onclick="toggleRetroVinyl()">
+    <div class="tonearm" id="retro-tonearm"></div>
+    <div class="vinyl-disc" id="retro-vinyl">
+      <div class="vinyl-center">CLASSIC<br>GOLD</div>
+    </div>
+  </div>
+
+  <button class="juke-btn" onclick="toggleRetroVinyl()" id="retro-btn-text">Play Old Classic 📻</button>
+
+  <!-- Old Bollywood Song Audio File (Lag Jaa Gale) -->
+  <audio id="old-bollywood-audio" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-vintage-melody-112191.mp3" type="audio/mpeg">
+  </audio>
+</div>
+
+<script>
+  let isRetroPlaying = false;
+
+  function toggleRetroVinyl() {
+    const vinyl = document.getElementById('retro-vinyl');
+    const tonearm = document.getElementById('retro-tonearm');
+    const btnText = document.getElementById('retro-btn-text');
+    const audio = document.getElementById('old-bollywood-audio');
+
+    if (!isRetroPlaying) {
+      vinyl.classList.add('spinning');
+      tonearm.classList.add('tonearm-active');
+      btnText.innerText = "Pause Melody ⏸️";
+      isRetroPlaying = true;
+      audio.play();
+    } else {
+      vinyl.classList.remove('spinning');
+      tonearm.classList.remove('tonearm-active');
+      btnText.innerText = "Play Old Classic 📻";
+      isRetroPlaying = false;
+      audio.pause();
+    }
+  }
+</script>
+<!-- RETRO VINYL JUKEBOX END -->
+
+
 <!-- REPLY FORM TO WHATSAPP START -->
 <style>
   #reply-section {
