@@ -1576,63 +1576,86 @@ spark.appendChild(h);
     }
   }
 </script>
-<!-- WHATSAPP SIMPLE TEXT MESSAGE SECTION START -->
+<!-- REPLY FORM TO WHATSAPP START -->
 <style>
-  #wa-text-box {
+  #reply-section {
     width: 90%;
     max-width: 380px;
-    margin: 30px auto;
-    background: rgba(20, 20, 30, 0.85);
-    backdrop-filter: blur(12px);
+    margin: 40px auto;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
     border-radius: 20px;
     padding: 25px 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    border: 2px solid #fff;
     text-align: center;
-    color: white;
-    border: 1.5px solid rgba(37, 211, 102, 0.4);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    box-sizing: border-box;
     font-family: system-ui, -apple-system, sans-serif;
   }
 
-  .wa-msg-icon {
-    font-size: 45px;
-    margin-bottom: 10px;
+  .reply-input {
+    width: 100%;
+    height: 85px;
+    border: 1.5px solid #ff9a9e;
+    border-radius: 12px;
+    padding: 12px;
+    font-size: 14px;
+    outline: none;
+    resize: none;
+    box-sizing: border-box;
+    margin: 15px 0;
   }
 
-  .wa-text-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
+  .send-btn {
     width: 100%;
-    padding: 14px 20px;
-    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    padding: 12px;
+    background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
     color: white;
     border: none;
     border-radius: 25px;
     font-size: 15px;
     font-weight: bold;
-    text-decoration: none;
-    box-shadow: 0 4px 18px rgba(37, 211, 102, 0.4);
-    transition: transform 0.2s ease;
-  }
-
-  .wa-text-btn:active {
-    transform: scale(0.97);
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
   }
 </style>
 
-<div id="wa-text-box">
-  <div class="wa-msg-icon">💬✨</div>
-  <h3 style="margin: 0 0 8px 0; color: #25D366; font-size: 19px;">Send a Message</h3>
-  <p style="font-size: 13px; color: #ddd; margin: 0 0 20px 0; line-height: 1.4;">
-    Click below to send a special message directly on WhatsApp!
+<div id="reply-section">
+  <h3 style="margin: 0; color: #333; font-size: 20px;">Send a Reply Back 💌</h3>
+  <p style="margin: 5px 0 0 0; font-size: 13px; opacity: 0.8; color: #555;">
+    Type a secret note or reaction below!
   </p>
 
-  <a href="https://wa.me/917897415058?text=Hey!%20I%20just%20visited%20your%20website%20and%20loved%20it!%20💖✨" class="wa-text-btn">
-    <span>Send WhatsApp Message</span> 🚀
-  </a>
+  <textarea id="user-reply" class="reply-input" placeholder="Type your message here... 💖"></textarea>
+
+  <button class="send-btn" onclick="sendToWhatsApp()">
+    <span>Send Reply via WhatsApp</span> 💬
+  </button>
 </div>
-<!-- WHATSAPP SIMPLE TEXT MESSAGE SECTION END -->
+
+<script>
+  function sendToWhatsApp() {
+    const myPhoneNumber = "917897415058"; 
+    
+    const message = document.getElementById('user-reply').value;
+    
+    if (!message.trim()) {
+      alert("Please type a message before sending! 😊");
+      return;
+    }
+
+    const fullMessage = `Hey! I saw the birthday surprise website! 🎈%0A%0A*My Message:* ${encodeURIComponent(message)}`;
+    const whatsappUrl = `https://wa.me/${myPhoneNumber}?text=${fullMessage}`;
+
+    window.open(whatsappUrl, '_blank');
+  }
+</script>
+<!-- REPLY FORM TO WHATSAPP END -->
+ 
 
 
 
