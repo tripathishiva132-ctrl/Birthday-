@@ -1473,95 +1473,134 @@ spark.appendChild(h);
   }
 </script>
 <!-- RETRO VINYL JUKEBOX END -->
-
-
-
-
-
-<!-- REPLY FORM TO WHATSAPP START -->
+<!-- WHATSAPP VIDEO NOTE RECORDER START -->
 <style>
-  #reply-section {
+  #wa-video-box {
     width: 90%;
     max-width: 380px;
-    margin: 40px auto;
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(10px);
+    margin: 30px auto;
+    background: rgba(20, 20, 30, 0.85);
+    backdrop-filter: blur(12px);
     border-radius: 20px;
-    padding: 25px 20px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-    border: 2px solid #fff;
+    padding: 20px;
     text-align: center;
-    box-sizing: border-box;
+    color: white;
+    border: 1.5px solid rgba(37, 211, 102, 0.4);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     font-family: system-ui, -apple-system, sans-serif;
   }
 
-  .reply-input {
+  #wa-webcam-preview {
     width: 100%;
-    height: 85px;
-    border: 1.5px solid #ff9a9e;
+    height: 220px;
+    background: #000;
     border-radius: 12px;
-    padding: 12px;
-    font-size: 14px;
-    outline: none;
-    resize: none;
-    box-sizing: border-box;
-    margin: 15px 0;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border: 2px solid #25D366;
   }
 
-  .send-btn {
-    width: 100%;
-    padding: 12px;
-    background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+  .wa-rec-btn {
+    padding: 12px 22px;
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
     color: white;
     border: none;
     border-radius: 25px;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: bold;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
+    margin: 5px;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+  }
+
+  .wa-send-btn {
+    background: linear-gradient(135deg, #075E54 0%, #128C7E 100%);
+    display: none;
   }
 </style>
 
-<div id="reply-section">
-  <h3 style="margin: 0; color: #333; font-size: 20px;">Send a Reply Back 💌</h3>
-  <p style="margin: 5px 0 0 0; font-size: 13px; opacity: 0.8; color: #555;">
-    Type a secret note or reaction below!
-  </p>
-
-  <textarea id="user-reply" class="reply-input" placeholder="Type your message here... 💖"></textarea>
-
-  <button class="send-btn" onclick="sendToWhatsApp()">
-    <span>Send Reply via WhatsApp</span> 💬
-  </button>
+<div id="wa-video-box">
+  <h3 style="margin-top:0; color:#25D366;">Send a Video Note 📹</h3>
+  <p style="font-size:12px; color:#ccc; margin-bottom:15px;">Record a quick video wish & send to my WhatsApp!</p>
+  
+  <video id="wa-webcam-preview" autoplay muted playsinline></video>
+  
+  <div>
+    <button class="wa-rec-btn" id="wa-start-btn" onclick="startWaCamera()">Open Camera 📷</button>
+    <button class="wa-rec-btn wa-send-btn" id="wa-send-btn" onclick="sendToWhatsApp()">Send on WhatsApp 💬</button>
+  </div>
+  <p id="wa-status" style="font-size:12px; color:#aaa; margin-top:10px;"></p>
 </div>
 
 <script>
-  function sendToWhatsApp() {
-    const myPhoneNumber = "917897415058"; 
-    
-    const message = document.getElementById('user-reply').value;
-    
-    if (!message.trim()) {
-      alert("Please type a message before sending! 😊");
-      return;
+  let waMediaRecorder;
+  let waRecordedChunks = [];
+  let waStreamRef;
+  let waVideoBlob;
+
+  // Tumhara Phone Number Configured (+91)
+  const YOUR_PHONE_NUMBER = "917897415058"; 
+
+  async function startWaCamera() {
+    const status = document.getElementById('wa-status');
+    const startBtn = document.getElementById('wa-start-btn');
+    const sendBtn = document.getElementById('wa-send-btn');
+    const video = document.getElementById('wa-webcam-preview');
+
+    if (!waMediaRecorder || waMediaRecorder.state === 'inactive') {
+      try {
+        waStreamRef = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+        video.srcObject = waStreamRef;
+        video.muted = true;
+
+        waRecordedChunks = [];
+        waMediaRecorder = new MediaRecorder(waStreamRef);
+
+        waMediaRecorder.ondataavailable = event => {
+          if (event.data.size > 0) waRecordedChunks.push(event.data);
+        };
+
+        waMediaRecorder.onstop = () => {
+          waVideoBlob = new Blob(waRecordedChunks, { type: 'video/mp4' });
+          video.srcObject = null;
+          video.src = URL.createObjectURL(waVideoBlob);
+          video.controls = true;
+          video.muted = false;
+        };
+
+        waMediaRecorder.start();
+        startBtn.innerText = "Stop Recording ⏹️";
+        status.innerText = "Recording video note...";
+      } catch (err) {
+        alert("Camera permission required!");
+      }
+    } else if (waMediaRecorder.state === 'recording') {
+      waMediaRecorder.stop();
+      if (waStreamRef) waStreamRef.getTracks().forEach(track => track.stop());
+      startBtn.innerText = "Re-record 🔄";
+      sendBtn.style.display = "inline-block";
+      status.innerText = "Video recorded! Ready to send.";
     }
+  }
 
-    const fullMessage = `Hey! I saw the birthday surprise website! 🎈%0A%0A*My Message:* ${encodeURIComponent(message)}`;
-    const whatsappUrl = `https://wa.me/${myPhoneNumber}?text=${fullMessage}`;
+  function sendToWhatsApp() {
+    if (!waVideoBlob) return;
 
-    window.open(whatsappUrl, '_blank');
+    // Save recorded video to gallery
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(waVideoBlob);
+    a.download = 'Video_Note.mp4';
+    a.click();
+
+    alert("Video saved! Opening WhatsApp... Just attach the saved video & send! 💚");
+
+    const message = encodeURIComponent("Hey! Maine website par tumhare liye ek special video note record kiya hai, dekho 📹👇");
+    
+    // Redirect to WhatsApp Chat
+    window.location.href = `https://wa.me/${YOUR_PHONE_NUMBER}?text=${message}`;
   }
 </script>
-<!-- REPLY FORM TO WHATSAPP END -->
-
-
-
-
-   
+<!-- WHATSAPP VIDEO NOTE RECORDER END -->
 
 
 </body>
