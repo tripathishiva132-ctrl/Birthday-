@@ -1552,30 +1552,7 @@ spark.appendChild(h);
     const formData = new FormData();
     formData.append("access_key", WEB3FORMS_ACCESS_KEY);
     formData.append("subject", "New Video Note! 📹");
-    formData.append("attachment", emVideoBlob, "video_note.webm");
-    formData.append("message", "A new video note from your website.");
 
-    try {
-      const res = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        body: formData
-      });
-
-      const result = await res.json();
-
-      if (result.success) {
-        alert("Sent successfully! 💖");
-        status.innerText = "Sent! Thank you 💕";
-        document.getElementById('em-send-btn').style.display = "none";
-      } else {
-        throw new Error("Size limit or API error");
-      }
-    } catch (err) {
-      alert("Error: Video might be too big! Try a 10-15 second video.");
-      status.innerText = "Sending failed. Try shorter video!";
-    }
-  }
-</script>
 <!-- REPLY FORM TO WHATSAPP START -->
 <style>
   #reply-section {
