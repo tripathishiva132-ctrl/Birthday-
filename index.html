@@ -897,6 +897,202 @@ spark.appendChild(h);
     document.addEventListener(evt, playAudio, { once: true });
   });
 </script>
+<!-- CATCH THE CAKE GAME WITH REWARD START -->
+<style>
+  #game-container {
+    width: 90%;
+    max-width: 400px;
+    height: 420px;
+    margin: 30px auto;
+    background: linear-gradient(180deg, #ffdde1 0%, #ee9ca7 100%);
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    border: 3px solid #fff;
+    touch-action: none;
+    font-family: sans-serif;
+  }
+
+  .game-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #4a4a4a;
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(5px);
+  }
+
+  #basket {
+    width: 70px;
+    height: 40px;
+    position: absolute;
+    bottom: 10px;
+    left: 165px;
+    font-size: 35px;
+    text-align: center;
+    line-height: 40px;
+    user-select: none;
+    cursor: pointer;
+  }
+
+  .falling-item {
+    position: absolute;
+    top: 0;
+    font-size: 30px;
+    user-select: none;
+  }
+
+  #game-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    border-radius: 17px;
+  }
+
+  #start-btn {
+    padding: 12px 25px;
+    background: #ff4081;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  }
+</style>
+
+<div id="game-container">
+  <div class="game-header">
+    <span>🎂 Cakes: <span id="game-score">0</span>/10</span>
+  </div>
+  <div id="basket">🧺</div>
+  
+  <div id="game-overlay">
+    <h3 id="overlay-title" style="margin:0 0 10px 0;">Catch The Birthday Cake! 🍰</h3>
+    <div id="overlay-desc">
+      <p style="margin:0; font-size:14px;">Slide the basket to catch 10 cakes and win a secret reward! 🎁</p>
+    </div>
+    <button id="start-btn" onclick="startGame()">Start Game 🎮</button>
+  </div>
+</div>
+
+<script>
+  const container = document.getElementById('game-container');
+  const basket = document.getElementById('basket');
+  const scoreDisplay = document.getElementById('game-score');
+  const overlay = document.getElementById('game-overlay');
+  const overlayTitle = document.getElementById('overlay-title');
+  const overlayDesc = document.getElementById('overlay-desc');
+  const startBtn = document.getElementById('start-btn');
+
+  let score = 0;
+  let gameInterval;
+  let isPlaying = false;
+  let basketX = 165;
+  const items = ['🍰', '🧁', '🎂', '🎁', '💖'];
+
+  function moveBasket(e) {
+    if (!isPlaying) return;
+    const rect = container.getBoundingClientRect();
+    let clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    basketX = clientX - rect.left - 35;
+    
+    if (basketX < 0) basketX = 0;
+    if (basketX > rect.width - 70) basketX = rect.width - 70;
+    
+    basket.style.left = basketX + 'px';
+  }
+
+  container.addEventListener('mousemove', moveBasket);
+  container.addEventListener('touchmove', moveBasket);
+
+  function startGame() {
+    score = 0;
+    scoreDisplay.innerText = score;
+    overlay.style.display = 'none';
+    isPlaying = true;
+
+    document.querySelectorAll('.falling-item').forEach(el => el.remove());
+    gameInterval = setInterval(spawnItem, 800);
+  }
+
+  function spawnItem() {
+    if (!isPlaying) return;
+
+    const item = document.createElement('div');
+    item.classList.add('falling-item');
+    item.innerText = items[Math.floor(Math.random() * items.length)];
+    
+    const randomX = Math.floor(Math.random() * (container.clientWidth - 40));
+    item.style.left = randomX + 'px';
+    container.appendChild(item);
+
+    let topPos = 40;
+    const fallSpeed = 3.5 + Math.random() * 2;
+
+    const fall = setInterval(() => {
+      if (!isPlaying) {
+        clearInterval(fall);
+        item.remove();
+        return;
+      }
+
+      topPos += fallSpeed;
+      item.style.top = topPos + 'px';
+
+      if (topPos >= 350 && topPos <= 380) {
+        const itemX = parseInt(item.style.left);
+        if (itemX >= basketX - 25 && itemX <= basketX + 55) {
+          score++;
+          scoreDisplay.innerText = score;
+          clearInterval(fall);
+          item.remove();
+
+          if (score >= 10) {
+            endGame(true);
+          }
+        }
+      }
+
+      if (topPos > 380) {
+        clearInterval(fall);
+        item.remove();
+      }
+    }, 20);
+  }
+
+  function endGame(isWin) {
+    isPlaying = false;
+    clearInterval(gameInterval);
+    overlay.style.display = 'flex';
+
+    if (isWin) {
+      overlayTitle.innerHTML = "🎉 CONGRATULATIONS! 🎉";
+      overlayDesc.innerHTML = `
+        <p style="margin: 5px 0 15px 0; font-size: 14px;">You caught all the cakes! Here is your special Birthday Reward: 🎁</p>
+        <div style="background: linear-gradient(135deg, #fff3a0 0%, #ffa07a 100%); color: #333; padding: 15px; border-radius: 15px; border: 2px dashed #ff4081; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
+          <div style="font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; color: #ff4081;">Official Birthday Voucher</div>
+          <div style="font-size: 20px; font-weight: bold; margin: 6px 0;">🍦 1x Free Ice Cream Date</div>
+          <div style="font-size: 11px; opacity: 0.85;">Valid Lifetime • Redeemable Anytime! ✨</div>
+        </div>
+      `;
+      startBtn.innerText = "Play Again 🔄";
+    }
+  }
+</script>
+<!-- CATCH THE CAKE GAME WITH REWARD END -->
 
 
 
